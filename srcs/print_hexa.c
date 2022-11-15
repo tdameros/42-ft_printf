@@ -30,5 +30,5 @@ size_t	print_hexa_pointer(unsigned long long number, char *base)
 size_t	print_pointer(void *pointer)
 {
 	return (write(1, "0x", 2)
-		+ print_hexa_p((unsigned long long) pointer, HEXA_BASE_LOWER));
+		+ print_hexa_pointer((unsigned long long) pointer, HEXA_BASE_LOWER));
 }
