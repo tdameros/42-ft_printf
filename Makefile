@@ -13,12 +13,8 @@ HEADERS			=	$(addprefix $(DIR_HEADERS),$(LIST_HEADERS))
 SRCS			=	$(addprefix $(DIR_SRCS),$(LIST_SRCS))
 OBJS			=	$(addprefix $(DIR_OBJS),$(LIST_SRCS:.c=.o))
 
-CC				=	gcc
 CFLAGS			=	-Wall -Wextra -Werror
 AR				=	ar rcs
-
-DB				=	gdb
-DBFLAGS			=	-g3 -fsanitize=address
 
 RM				=	rm -rf
 MKDIR			=	mkdir -p
@@ -28,20 +24,16 @@ all: $(NAME)
 $(NAME): $(DIR_OBJS) $(OBJS) $(HEADERS) Makefile
 	$(AR) $(NAME) $(OBJS)
 
-$(DIR_OBJS)%.o: $(DIR_SRCS)%.c $(HEADERS)
-	$(CC) $(CFLAGS) -I $(DIR_HEADERS) -c $< -o $@ $(DBFLAGS)
+$(DIR_OBJS)%.o: $(DIR_SRCS)%.c $(HEADERS) Makefile
+	$(CC) $(CFLAGS) -I $(DIR_HEADERS) -c $< -o $@
 
 $(DIR_OBJS):
 	$(MKDIR) $(DIR_OBJS)
 
-$(LIBFT):
-	$(MAKE) -C libft/
-
 clean:
-	$(RM) $(DIR_OBJS)
+	$(RM) $(OBJS)
 
-norm:
-	norminette $(SRCS) $(HEADERS)
+fclean: clean
+	$(RM) $(NAME)
 
-debug: $(NAME)
-	$(CC) $(DBFLAGS) -I incs/ main.c libftprintf.a $(DBFLAGS)
+re: fclean $(NAME)

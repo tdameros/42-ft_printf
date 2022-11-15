@@ -28,9 +28,11 @@ size_t	print_nbr(int n);
 size_t	print_unsigned_nbr(unsigned int n);
 
 size_t	print_hexa(unsigned int number, char *base);
+size_t	print_hexa_pointer(unsigned long long number, char *base);
 size_t	print_pointer(void *pointer);
 
 int		ft_printf(const char *format, ...);
 int		is_valid_type(char c);
 size_t	print_conversion(char type, va_list args);
+
 #endif
