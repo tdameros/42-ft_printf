@@ -32,6 +32,7 @@ int	ft_printf(const char *format, ...)
 			len += write(1, format + index, 1);
 		index++;
 	}
+	va_end(args);
 	return (len);
 }
 

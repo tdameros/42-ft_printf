@@ -1,4 +1,4 @@
-.PHONY: all clean fclean re norm
+.PHONY: all clean fclean re
 
 NAME			=	libftprintf.a
 
