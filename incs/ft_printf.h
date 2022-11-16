@@ -20,17 +20,21 @@
 # define HEXA_BASE_LOWER "0123456789abcdef"
 # define HEXA_BASE_UPPER "0123456789ABCDEF"
 
+// String functions
 size_t	ft_strlen(const char *s);
 size_t	print_str(char *str);
 size_t	print_char(char c);
 
+// Number functions
 size_t	print_nbr(int n);
 size_t	print_unsigned_nbr(unsigned int n);
 
+// Hexa functions
 size_t	print_hexa(unsigned int number, char *base);
 size_t	print_hexa_pointer(unsigned long long number, char *base);
 size_t	print_pointer(void *pointer);
 
+// Ft_printf function
 int		ft_printf(const char *format, ...);
 int		is_valid_type(char c);
 size_t	print_conversion(char type, va_list args);

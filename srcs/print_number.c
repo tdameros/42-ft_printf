@@ -13,6 +13,11 @@
 #include "ft_printf.h"
 #include <limits.h>
 
+/**
+ * Print int number in stdout.
+ * @param n
+ * @return the number of characters printed
+ */
 size_t	print_nbr(int n)
 {
 	if (n == INT_MIN)
@@ -25,6 +30,11 @@ size_t	print_nbr(int n)
 		return (print_char(n + '0'));
 }
 
+/**
+ * Print unsigned int number in stdout.
+ * @param n
+ * @return the number of characters printed
+ */
 size_t	print_unsigned_nbr(unsigned int n)
 {
 	if (n > 9)

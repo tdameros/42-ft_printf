@@ -12,6 +12,9 @@
 
 #include "ft_printf.h"
 
+/**
+ * @return len of s
+ */
 size_t	ft_strlen(const char *s)
 {
 	char	*ptr;
@@ -22,6 +25,10 @@ size_t	ft_strlen(const char *s)
 	return (ptr - s);
 }
 
+/**
+ * Print string in stdout. Print (null) is pointer is NULL.
+ * @return the number of characters printed
+ */
 size_t	print_str(char *str)
 {
 	if (str == NULL)
@@ -29,6 +36,10 @@ size_t	print_str(char *str)
 	return (write(1, str, ft_strlen(str)));
 }
 
+/**
+ * Print char in stdout.
+ * @return the number of characters printed
+ */
 size_t	print_char(char c)
 {
 	return (write(1, &c, 1));

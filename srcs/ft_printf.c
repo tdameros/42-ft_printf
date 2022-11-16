@@ -12,6 +12,10 @@
 
 #include "ft_printf.h"
 
+/**
+ * Simple printf with basic conversion (cspdiuxX%).
+ * @return the number of characters printed
+ */
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
@@ -36,12 +40,21 @@ int	ft_printf(const char *format, ...)
 	return (len);
 }
 
+/**
+ * @return boolean if char c is valid type conversion of printf.
+ */
 int	is_valid_type(char c)
 {
 	return (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'u'
 		|| c == 'x' || c == 'X' || c == '%');
 }
 
+/**
+ * Print the conversion in stdout.
+ * @param type valid char type in printf
+ * @param args variadic arguments
+ * @return the number of characters printed
+ */
 size_t	print_conversion(char type, va_list args)
 {
 	if (type == 's')

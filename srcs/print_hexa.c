@@ -12,23 +12,35 @@
 
 #include "ft_printf.h"
 
+/**
+ * Print hexa conversion of int number in stdout.
+ * @return the number of characters printed
+ */
 size_t	print_hexa(unsigned int number, char *base)
 {
 	if (number < 16)
-		return (write(1, base + number, 1));
-	return (print_hexa(number / 16, base) + write(1, base + (number % 16), 1));
+		return (print_char(base[number]));
+	return (print_hexa(number / 16, base) + print_char(base[number % 16]));
 }
 
+/**
+ * Print hexa conversion of unsigned long long in stdout.
+ * @return the number of characters printed
+ */
 size_t	print_hexa_pointer(unsigned long long number, char *base)
 {
 	if (number < 16)
-		return (write(1, base + number, 1));
+		return (print_char(base[number]));
 	return (print_hexa_pointer(number / 16, base)
-		+ write(1, base + (number % 16), 1));
+		+ print_char(base[number % 16]));
 }
 
+/**
+ * Print hexa conversion of pointer in stdout.
+ * @return the number of characters printed
+ */
 size_t	print_pointer(void *pointer)
 {
-	return (write(1, "0x", 2)
+	return (print_str("0x")
 		+ print_hexa_pointer((unsigned long long) pointer, HEXA_BASE_LOWER));
 }
