@@ -11,34 +11,57 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <limits.h>
 
-/**
- * Print int number in stdout.
- * @param n
- * @return the number of characters printed
- */
-size_t	print_nbr(int n)
+int	print_number(long number)
 {
-	if (n == INT_MIN)
-		return (print_str("-2147483648"));
-	if (n < 0)
-		return (print_char('-') + print_nbr(-n));
-	else if (n > 9)
-		return (print_nbr(n / 10) + print_char((n % 10) + '0'));
-	else
-		return (print_char(n + '0'));
+	char	*conversion;
+	int		len;
+
+	conversion = int_to_str(number);
+	if (conversion == NULL)
+		return (-1);
+	len = print_str(conversion);
+	free(conversion);
+	return (len);
 }
 
-/**
- * Print unsigned int number in stdout.
- * @param n
- * @return the number of characters printed
- */
-size_t	print_unsigned_nbr(unsigned int n)
+char	*int_to_str(long number)
 {
-	if (n > 9)
-		return (print_nbr(n / 10) + print_char((n % 10) + '0'));
-	else
-		return (print_char(n + '0'));
+	int		number_len;
+	int		index;
+	char	*conversion;
+
+	number_len = long_len(number);
+	conversion = malloc(sizeof(char) * (number_len + 1));
+	if (conversion == NULL)
+		return (NULL);
+	conversion[number_len--] = '\0';
+	index = 0;
+	if (number < 0)
+	{
+		conversion[0] = '-';
+		index++;
+		number = -number;
+	}
+	while (number_len >= index)
+	{
+		conversion[number_len--] = (number % 10) + '0';
+		number /= 10;
+	}
+	return (conversion);
+}
+
+int	long_len(long number)
+{
+	int	len;
+
+	len = 1;
+	if (number < 0)
+		len++;
+	while (!(number > -10 && number < 10))
+	{
+		number /= 10;
+		len++;
+	}
+	return (len);
 }

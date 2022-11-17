@@ -14,13 +14,15 @@
 
 /**
  * Simple printf with basic conversion (cspdiuxX%).
- * @return the number of characters printed
+ * @return the number of characters printed or
+ * a negative value if an error occurs.
  */
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	size_t	index;
-	size_t	len;
+	int		len;
+	int		conversion_len;
 
 	index = 0;
 	len = 0;
@@ -29,11 +31,15 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[index] == '%' && is_valid_type(format[index + 1]))
 		{
-			len += print_conversion(format[index + 1], args);
+			conversion_len = print_conversion(format[index + 1], args);
 			index++;
 		}
 		else
-			len += write(1, format + index, 1);
+			conversion_len = print_char(format[index]);
+		if (conversion_len < 0)
+			return (-1);
+		else
+			len += conversion_len;
 		index++;
 	}
 	va_end(args);
@@ -53,9 +59,10 @@ int	is_valid_type(char c)
  * Print the conversion in stdout.
  * @param type valid char type in printf
  * @param args variadic arguments
- * @return the number of characters printed
+ * @return the number of characters printed or
+ * a negative value if an error occurs.
  */
-size_t	print_conversion(char type, va_list args)
+int	print_conversion(char type, va_list args)
 {
 	if (type == 's')
 		return (print_str(va_arg(args, char *)));
@@ -70,8 +77,8 @@ size_t	print_conversion(char type, va_list args)
 	else if (type == '%')
 		return (print_char('%'));
 	else if (type == 'd' || type == 'i')
-		return (print_nbr(va_arg(args, int)));
+		return (print_number((int) va_arg(args, int)));
 	else if (type == 'u')
-		return (print_unsigned_nbr(va_arg(args, unsigned int)));
+		return (print_number((unsigned int) va_arg(args, unsigned int)));
 	return (0);
 }

@@ -14,29 +14,32 @@
 # define FT_PRINTF_H
 
 # include <unistd.h>
-# include <stddef.h>
+# include <stdlib.h>
 # include <stdarg.h>
 
 # define HEXA_BASE_LOWER "0123456789abcdef"
 # define HEXA_BASE_UPPER "0123456789ABCDEF"
 
 // String functions
+int		print_str(char *str);
+int		print_char(char c);
 size_t	ft_strlen(const char *s);
-size_t	print_str(char *str);
-size_t	print_char(char c);
 
 // Number functions
-size_t	print_nbr(int n);
-size_t	print_unsigned_nbr(unsigned int n);
+int		print_number(long number);
+int		long_len(long number);
+char	*int_to_str(long number);
 
 // Hexa functions
-size_t	print_hexa(unsigned int number, char *base);
-size_t	print_hexa_pointer(unsigned long long number, char *base);
-size_t	print_pointer(void *pointer);
+int		print_hexa(unsigned int number, char *base);
+int		print_pointer(void *pointer);
+char	*int_to_hexa(unsigned int number, char *base);
+char	*pointer_to_hexa(unsigned long long number, char *base);
+int		conversion_hexa_len(unsigned long long number);
 
 // Ft_printf function
 int		ft_printf(const char *format, ...);
 int		is_valid_type(char c);
-size_t	print_conversion(char type, va_list args);
+int		print_conversion(char type, va_list args);
 
 #endif
